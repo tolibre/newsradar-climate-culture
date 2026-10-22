@@ -60,7 +60,7 @@ REPLACEMENTS = [
     # ---- news_monitor.py: 출입처 ----
     # 0-44·0-67: 휴일 특근 — 원본은 경제정책팀 8곳을 당직으로 모은다. 사회정책팀 판은 그 묶음을 팀 묶음(social_team.py)으로
     # 바꾸고 DUTY_COLLECT는 원본 값(True) 그대로 둔다(사용자 10/22 "세 명을 그룹화해서 휴일 당직 기능을 만들자").
-    *ST.replacements(NM, RP),
+    *ST.replacements(NM, RP, GROUPS),   # 0-72: 당직 섹션 접기(LIVE_FOLD_KEEP)
     # 0-46: 원본의 EXCLUDE_TERMS(대한체육회·스포츠공정위·모의공정위)는 '공정위' 검색어 오탐용이다. 이 판은 '공정위'를
     # 검색하지 않으니 끈다 — 켜 두면 제목에 '대한체육회'가 든 자기 출입처 기사(문체부 감사·국감 등)까지 통째로 버려진다.
     (NM, r"EXCLUDE_TERMS = \[\n(?:.*\n)*?\]\n",
@@ -114,6 +114,7 @@ FORBIDDEN = {
 EXPECT = {
     "DUTY_ONLY_GROUPS": ST.duty_only(GROUPS),   # 0-67 — 사회정책팀 묶음 중 이 판 섹션이 아닌 것
     "DUTY_COLLECT": True,
+    "LIVE_FOLD_KEEP": ST.fold_keep(GROUPS),   # 0-72
     "LIVE_WEAK_FOLD_GROUPS": list(ST.WEAK_GROUPS),   # 0-68
     "EXCLUDE_TERMS": [],      # 0-46 — 공정위 오탐용 제외어 꺼짐
     "KEYWORDS": ["기후에너지환경부", "기후부", "문화체육관광부", "문체부"],
